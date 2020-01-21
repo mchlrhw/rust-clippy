@@ -12,7 +12,7 @@ branches:
   # Only build AppVeyor on r+ and try branch
   only:
     - auto
-    - try
+    # - try
 
 cache:
   - '%USERPROFILE%\.cargo'
