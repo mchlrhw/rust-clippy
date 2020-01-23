@@ -275,6 +275,7 @@ pub mod ptr_offset_with_cast;
 pub mod question_mark;
 pub mod ranges;
 pub mod redundant_clone;
+pub mod redundant_continue;
 pub mod redundant_field_names;
 pub mod redundant_pattern_matching;
 pub mod redundant_static_lifetimes;
@@ -724,6 +725,7 @@ pub fn register_plugins(store: &mut rustc_lint::LintStore, sess: &Session, conf:
         &ranges::RANGE_PLUS_ONE,
         &ranges::RANGE_ZIP_WITH_LEN,
         &redundant_clone::REDUNDANT_CLONE,
+        &redundant_continue::REDUNDANT_CONTINUE,
         &redundant_field_names::REDUNDANT_FIELD_NAMES,
         &redundant_pattern_matching::REDUNDANT_PATTERN_MATCHING,
         &redundant_static_lifetimes::REDUNDANT_STATIC_LIFETIMES,
@@ -991,6 +993,7 @@ pub fn register_plugins(store: &mut rustc_lint::LintStore, sess: &Session, conf:
     store.register_early_pass(|| box utils::internal_lints::ProduceIce);
     store.register_late_pass(|| box let_underscore::LetUnderscore);
     store.register_late_pass(|| box atomic_ordering::AtomicOrdering);
+    store.register_early_pass(|| box redundant_continue::RedundantContinue);
 
     store.register_group(true, "clippy::restriction", Some("clippy_restriction"), vec![
         LintId::of(&arithmetic::FLOAT_ARITHMETIC),
@@ -1281,6 +1284,7 @@ pub fn register_plugins(store: &mut rustc_lint::LintStore, sess: &Session, conf:
         LintId::of(&ranges::RANGE_MINUS_ONE),
         LintId::of(&ranges::RANGE_ZIP_WITH_LEN),
         LintId::of(&redundant_clone::REDUNDANT_CLONE),
+        LintId::of(&redundant_continue::REDUNDANT_CONTINUE),
         LintId::of(&redundant_field_names::REDUNDANT_FIELD_NAMES),
         LintId::of(&redundant_pattern_matching::REDUNDANT_PATTERN_MATCHING),
         LintId::of(&redundant_static_lifetimes::REDUNDANT_STATIC_LIFETIMES),
@@ -1420,6 +1424,7 @@ pub fn register_plugins(store: &mut rustc_lint::LintStore, sess: &Session, conf:
         LintId::of(&ptr::CMP_NULL),
         LintId::of(&ptr::PTR_ARG),
         LintId::of(&question_mark::QUESTION_MARK),
+        LintId::of(&redundant_continue::REDUNDANT_CONTINUE),
         LintId::of(&redundant_field_names::REDUNDANT_FIELD_NAMES),
         LintId::of(&redundant_pattern_matching::REDUNDANT_PATTERN_MATCHING),
         LintId::of(&redundant_static_lifetimes::REDUNDANT_STATIC_LIFETIMES),

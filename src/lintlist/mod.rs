@@ -6,7 +6,7 @@ pub use lint::Lint;
 pub use lint::LINT_LEVELS;
 
 // begin lint list, do not remove this comment, it’s used in `update_lints`
-pub const ALL_LINTS: [Lint; 348] = [
+pub const ALL_LINTS: [Lint; 349] = [
     Lint {
         name: "absurd_extreme_comparisons",
         group: "correctness",
@@ -1693,6 +1693,13 @@ pub const ALL_LINTS: [Lint; 348] = [
         desc: "redundant closures for method calls",
         deprecation: None,
         module: "eta_reduction",
+    },
+    Lint {
+        name: "redundant_continue",
+        group: "style",
+        desc: "Redundant `continue`s inside loops",
+        deprecation: None,
+        module: "redundant_continue",
     },
     Lint {
         name: "redundant_field_names",
